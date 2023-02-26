@@ -10,7 +10,7 @@ const UserButton = ({user, ...rest}) => {
   return (
     // myBool ?
     <TouchableOpacity style={styles.buttonContainer} {...rest} >
-      <Text style={styles.buttonText}>{user.email}</Text>
+      <Text style={styles.buttonText}>{user.displayName}</Text>
     </TouchableOpacity>
   //   : 
   //   <TouchableOpacity style={styles.colorButtonContainer} {...rest} onPress={() => {toggleBool()}}>

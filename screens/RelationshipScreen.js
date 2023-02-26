@@ -33,7 +33,11 @@ function addAmount(changeAmount, current, uid, otherUID) {
     const changeAmountNum = parseFloat(changeAmount,10);
     const myNewBalance = currentNum+changeAmountNum;
     updateDoc(doc(firestore, "users", uid), {
-        "relationships": {[otherUID]:myNewBalance},
+        [`relationships.${otherUID}`]: myNewBalance,
+    })
+    const otherUserNewBalance = myNewBalance*(-1);
+    updateDoc(doc(firestore, "users", otherUID), {
+        [`relationships.${uid}`]: otherUserNewBalance,
     })
 }
 
@@ -42,7 +46,11 @@ function subtractAmount(changeAmount, current, uid, otherUID) {
     const changeAmountNum = parseFloat(changeAmount,10);
     const myNewBalance = currentNum-changeAmountNum;
     updateDoc(doc(firestore, "users", uid), {
-        "relationships": {[otherUID]:myNewBalance},
+        [`relationships.${otherUID}`]: myNewBalance,
+    })
+    const otherUserNewBalance = myNewBalance*(-1);
+    updateDoc(doc(firestore, "users", otherUID), {
+        [`relationships.${uid}`]: otherUserNewBalance,
     })
 }
 
@@ -51,7 +59,11 @@ function addEvenAmount(changeAmount, current, uid, otherUID) {
     const changeAmountNum = parseFloat(changeAmount,10);
     const myNewBalance = currentNum+0.5*changeAmountNum;
     updateDoc(doc(firestore, "users", uid), {
-        "relationships": {[otherUID]:myNewBalance},
+        [`relationships.${otherUID}`]: myNewBalance,
+    })
+    const otherUserNewBalance = myNewBalance*(-1);
+    updateDoc(doc(firestore, "users", otherUID), {
+        [`relationships.${uid}`]: otherUserNewBalance,
     })
 }
 
@@ -60,7 +72,11 @@ function subtractEvenAmount(changeAmount, current, uid, otherUID) {
     const changeAmountNum = parseFloat(changeAmount,10);
     const myNewBalance = currentNum-0.5*changeAmountNum;
     updateDoc(doc(firestore, "users", uid), {
-        "relationships": {[otherUID]:myNewBalance},
+        [`relationships.${otherUID}`]: myNewBalance,
+    })
+    const otherUserNewBalance = myNewBalance*(-1);
+    updateDoc(doc(firestore, "users", otherUID), {
+        [`relationships.${uid}`]: otherUserNewBalance,
     })
 }
 
@@ -98,19 +114,27 @@ async function testReceipt() {
     // });
 
 }
+export function getName(otherUID) {
+    const q = doc(firestore, "users", otherUID);
+    const [otherUser, isLoading] = useDocumentData(q);
+    console.log(otherUID);
+    return { otherUser, isLoading };
+  }
 
 const RelationshipScreen = ({route}) => {
     const { otherUID } = route.params;
     const { userData, isLoading } = getRelationship("s2SC6l4b6CSp67MDwWAPkYCFDNI2");
+    const { otherUser, isLoading2 } = getName(otherUID);
     const [changeAmount, setchangeAmount] = useState();
     const [totalChangeAmount, setTotalChangeAmount] = useState();
     while(isLoading);
-    if (userData) {
+    if (userData && otherUser) {
+        const otherName = otherUser.displayName;
         const amount = userData.relationships[otherUID];
         const positiveAmount = amount > 0;
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Your Balance With {otherUID}</Text>
+                <Text style={styles.text}>Balance With {otherName}</Text>
                 { positiveAmount ? <Text style={styles.positiveText}>{amount}</Text> :  <Text style={styles.negativeText}>{amount}</Text>}
                 <FormInput 
                 labelValue={changeAmount}
@@ -130,7 +154,6 @@ const RelationshipScreen = ({route}) => {
                 />
                 <FormButton buttonTitle='Split Evenly (I paid)' onPress={()=> {addEvenAmount(totalChangeAmount, amount,"s2SC6l4b6CSp67MDwWAPkYCFDNI2",otherUID)}}/>
                 <FormButton buttonTitle='Split Evenly (They paid)' onPress={()=> {subtractEvenAmount(totalChangeAmount, amount,"s2SC6l4b6CSp67MDwWAPkYCFDNI2",otherUID)}}/>
-                <FormButton buttonTitle='Test' onPress={()=> {testReceipt()}}/>
             </View>
         );
     }
