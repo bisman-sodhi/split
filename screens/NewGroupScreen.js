@@ -14,7 +14,7 @@ import {
     where,
     updateDoc,
   } from "firebase/firestore";
-import { firestore } from "../firebase_setup/firebase";
+import { firestore, getAuth } from "../firebase_setup/firebase";
 import {
     useCollectionData, useDocumentData,
   } from "react-firebase-hooks/firestore";
@@ -32,10 +32,9 @@ function createGroup(groupIDs, groupName) {
     })
     alert("Group created!")
 }
-
-const selected = [];
+const auth = getAuth()
+const selected = [auth.currentUser.uid];
 function adjustSelection(uid) {
-    console.log("here");
      if (!selected.includes(uid)) {
         selected.push(uid);
     } else {

@@ -81,6 +81,12 @@ function subtractEvenAmount(changeAmount, current, uid, otherUID) {
     })
 }
 
+function createRelationship(uid, otherUID) {
+    setDoc(doc(firestore, "users", uid), {
+        [`relationships.${otherUID}`]: 0,
+    })
+}
+
 async function testReceipt() {
     // console.log("in here");
     // const Client = require('@veryfi/veryfi-sdk');
@@ -132,7 +138,14 @@ const RelationshipScreen = ({route}) => {
     while(isLoading);
     if (userData && otherUser) {
         const otherName = otherUser.displayName;
-        const amount = userData.relationships[otherUID];
+        let amount = 0;
+        console.log("here");
+        if (!(otherUID in userData.relationships)) {
+            amount = 0;
+            createRelationship(userData.uid, otherUID);
+        } else {
+            amount = userData.relationships[otherUID];
+        }
         const positiveAmount = amount > 0;
         return (
             <View style={styles.container}>
