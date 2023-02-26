@@ -3,6 +3,19 @@ import React, { createContext, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 //import auth from '../firebase_setup/firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { uuidv4 } from "@firebase/util";
+import {
+    collection,
+    doc,
+    orderBy,
+    query,
+    setDoc,
+    where,
+  } from "firebase/firestore";
+import { firestore } from "../firebase_setup/firebase";
+import {
+    useCollectionData, useDocumentData,
+  } from "react-firebase-hooks/firestore";
 
 export const AuthContext = createContext();
 
@@ -23,7 +36,16 @@ export const AuthProvider = ({children}) => {
                 },
                 register: async(email, password) => {
                     try {
-                        await createUserWithEmailAndPassword(auth,email,password);
+                        await createUserWithEmailAndPassword(auth,email,password).then(function(data){
+                            console.log(data.user.uid);
+                            const uid = data.user.uid
+                            setDoc(doc(firestore, "users", uid), {
+                                uid,
+                                "relationships": {"e5O0TWEqeCNw4nZEpZ5TgueDzpv1":0},
+                            })
+                          }).catch(function(error) {
+                              //Handle error
+                          });
                     } catch (e) {
                         console.log(e);
                     }
