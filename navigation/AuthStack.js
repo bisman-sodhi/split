@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../screens/LoginScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import SignupScreen from '../screens/SignupScreen';
+import PeopleScreen from '../screens/PeopleScreen';
 
 import icon from "react-native-vector-icons/FontAwesome"
 import FontAwesome from 'react-fontawesome';
@@ -48,6 +49,7 @@ const AuthStack = () => {
         <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{header: () => null}} />
         <Stack.Screen name="Login" component={LoginScreen} options={{header: () => null}} />
         <Stack.Screen name="SignUp" component={SignupScreen} />
+        <Stack.Screen name='People' component={PeopleScreen} />
       </Stack.Navigator>
   );
 };

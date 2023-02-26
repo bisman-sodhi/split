@@ -4,6 +4,8 @@ import SocialButton from "../components/SocialButton";
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import { AuthContext } from '../navigation/AuthProvider';
+import { NavigationContainer } from '@react-navigation/native';
+//import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState();

@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { AuthContext } from '../navigation/AuthProvider';
 import FormButton from '../components/FormButton';
+import { NavigationContainer } from '@react-navigation/native';
+//import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const HomeScreen = () => {
     const {user, logout} = useContext(AuthContext);

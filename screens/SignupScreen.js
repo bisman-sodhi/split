@@ -4,14 +4,24 @@ import SocialButton from "../components/SocialButton";
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import { AuthContext } from '../navigation/AuthProvider';
+import { NavigationContainer } from '@react-navigation/native';
+//import { createNativeStackNavigator } from '@react-navigation/native-stack';
+//import { useNavigation } from '@react-navigation/native';
+
+// function GoToPeople({navigation}) {
+// const navigateToPeople = useNavigation();
+// return (
+//   navigation.navigate('People')
+// );
+// }
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [phoneNumber, setPhoneNumber] = useState();
 
   const {register} = useContext(AuthContext);
-
+  
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Create an account!</Text>
@@ -23,7 +33,7 @@ const SignupScreen = ({navigation}) => {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect="false"
-            />
+            />       
             <FormInput 
                 labelValue={password}
                 onChangeText={(userPassword) => setPassword(userPassword)}
@@ -32,20 +42,24 @@ const SignupScreen = ({navigation}) => {
                 secureTextEntry={true}
             />
             <FormInput 
-                labelValue={confirmPassword}
-                onChangeText={(userPassword) => setPassword(userPassword)}
-                placeholderText="Confirm Password"
-                iconType="lock"
-                secureTextEntry={true}
+                labelValue={phoneNumber}
+                onChangeText={(userPhoneNumber) => setPhoneNumber(userPhoneNumber)}
+                placeholderText="Enter Phone Number As +1xxxxxxxxxx"
+                autoCapitalize="none"
+                autoCorrect="false"
             />
             <FormButton 
                 buttonTitle="Sign Up"
-                onPress={() => register(email, password)}
+                onPress={() => register(email, password, phoneNumber)}
             />
-
-            <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
-              <Text style={styles.navButtonText}>Forgot Password?</Text>
+            
+            <TouchableOpacity style={styles.forgotButton} onPress={() => navigation.navigate('People')}>
+              <Text style={styles.navButtonText}>Go to People</Text>
             </TouchableOpacity>
+
+            {/* <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
+              <Text style={styles.navButtonText}>Forgot Password? adssad</Text>
+            </TouchableOpacity> */}
 
             <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Login')}>
               <Text style={styles.navButtonText}>Have an account? Sign In</Text>
@@ -53,6 +67,7 @@ const SignupScreen = ({navigation}) => {
         </View>
     );
 };
+
 
 export default SignupScreen;
 
