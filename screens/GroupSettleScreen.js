@@ -71,7 +71,7 @@ const GroupSettleScreen = ({route}) => {
         
         return (
                 <View style={styles.container}>
-                    <Text style={styles.text}>Welcome User! {count} </Text> 
+                    <Text style={styles.text}>Split the Bill!</Text> 
                     <FormInput 
                     labelValue={changeAmount}
                     onChangeText={(changeAmount2) => setchangeAmount(changeAmount2)}
@@ -79,7 +79,7 @@ const GroupSettleScreen = ({route}) => {
                     keyboardType="decimal-pad"
                     iconType="tags"
                     />
-                    <FormButton buttonTitle='Split!' onPress={()=> {splitAmount(changeAmount, groupData.groupIDs, count, userData)}}/> 
+                    <FormButton buttonTitle='Split' onPress={()=> {splitAmount(changeAmount, groupData.groupIDs, count, userData)}}/> 
                 </View>
                 
         );

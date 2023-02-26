@@ -19,7 +19,7 @@ import { firestore } from "../firebase_setup/firebase";
 import {
   useCollectionData, useDocumentData,
 } from "react-firebase-hooks/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth } from 'firebase/auth';
 
 function getGroups(uid) {
 
@@ -40,13 +40,12 @@ function getUsers() {
 
 const HomeScreen = ({navigation}) => {
   const auth = getAuth();
-  console.log(auth.currentUser);
     const {user, logout} = useContext(AuthContext);
-    const {groups, isLoading} = getGroups("e5O0TWEqeCNw4nZEpZ5TgueDzpv1");
+    const {groups, isLoading} = getGroups(auth.currentUser.uid);
     const {users, isLoading2} = getUsers();
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Welcome User!</Text>  
+            <Text style={styles.text}>Welcome!</Text>  
             <Text style={styles.text}>Groups</Text>
             <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('NewGroup')}>
               <Text style={styles.navButtonText}>Create New Group</Text>

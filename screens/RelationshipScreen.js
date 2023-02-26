@@ -18,6 +18,7 @@ import {
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import axios from 'axios';
+import { getAuth } from 'firebase/auth';
 
 function getRelationship(id) {
     const q = doc(firestore, "users", id);
@@ -122,8 +123,9 @@ export function getName(otherUID) {
   }
 
 const RelationshipScreen = ({route}) => {
+    const auth = getAuth();
     const { otherUID } = route.params;
-    const { userData, isLoading } = getRelationship("s2SC6l4b6CSp67MDwWAPkYCFDNI2");
+    const { userData, isLoading } = getRelationship(auth.currentUser.uid);
     const { otherUser, isLoading2 } = getName(otherUID);
     const [changeAmount, setchangeAmount] = useState();
     const [totalChangeAmount, setTotalChangeAmount] = useState();
@@ -143,8 +145,8 @@ const RelationshipScreen = ({route}) => {
                 keyboardType="decimal-pad"
                 iconType="tags"
                 />
-                <FormButton buttonTitle='I Owe' onPress={()=> {subtractAmount(changeAmount, amount,"s2SC6l4b6CSp67MDwWAPkYCFDNI2",otherUID)}}/>
-                <FormButton buttonTitle='They Owe' onPress={()=> {addAmount(changeAmount, amount,"s2SC6l4b6CSp67MDwWAPkYCFDNI2",otherUID)}}/>
+                <FormButton buttonTitle='I Owe' onPress={()=> {subtractAmount(changeAmount, amount,auth.currentUser.uid,otherUID)}}/>
+                <FormButton buttonTitle='They Owe' onPress={()=> {addAmount(changeAmount, amount,auth.currentUser.uid,otherUID)}}/>
                 <FormInput 
                 labelValue={totalChangeAmount}
                 onChangeText={(totalChangeAmount2) => setTotalChangeAmount(totalChangeAmount2)}
@@ -152,8 +154,8 @@ const RelationshipScreen = ({route}) => {
                 keyboardType="decimal-pad"
                 iconType="tags"
                 />
-                <FormButton buttonTitle='Split Evenly (I paid)' onPress={()=> {addEvenAmount(totalChangeAmount, amount,"s2SC6l4b6CSp67MDwWAPkYCFDNI2",otherUID)}}/>
-                <FormButton buttonTitle='Split Evenly (They paid)' onPress={()=> {subtractEvenAmount(totalChangeAmount, amount,"s2SC6l4b6CSp67MDwWAPkYCFDNI2",otherUID)}}/>
+                <FormButton buttonTitle='Split Evenly (I paid)' onPress={()=> {addEvenAmount(totalChangeAmount, amount,auth.currentUser.uid,otherUID)}}/>
+                <FormButton buttonTitle='Split Evenly (They paid)' onPress={()=> {subtractEvenAmount(totalChangeAmount, amount,auth.currentUser.uid,otherUID)}}/>
             </View>
         );
     }

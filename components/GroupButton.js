@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#ffffff',
-    fontFamily: 'Lato-Regular',
   },
   colorButtonContainer: {
     marginTop: 10,
