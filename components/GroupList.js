@@ -1,18 +1,16 @@
-import UserButton from "./UserButton";
-import ColoredUserButton from "./ColoredUserButton";
+import GroupButton from './GroupButton';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import {windowHeight, windowWidth} from '../utils/Dimensions';
 import { useState } from "react";
 
-export default function UserList({navigation, users}){
+export default function GroupList({groups}){
     return (
     <View >
-        {users?.length ===0 ? (
+        {groups?.length ===0 ? (
     <Text textAlign="center" fontSize="xl">
-        No other users yet...</Text>
+        No groups...</Text>
     ) : (
-        // users?.map((user) => (selected.includes(user.uid) ? <ColoredUserButton user={user} onPress={() => {removeUserFromSelected(user.uid)}}/> : <UserButton user={user} onPress={() => {addUserToSelected(user.uid)}}/>))
-        users?.map((user) => <UserButton user={user} onPress={() => {navigation.navigate('Relationship', {otherUID: user.uid})}}/>)
+        groups?.map((group) => <GroupButton group={group} onPress={() => {}}/>)
     )}
 
     </View>

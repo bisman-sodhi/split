@@ -2,25 +2,15 @@ import {React, useState} from 'react';
 import {Text, TouchableOpacity, StyleSheet, TouchableHighlight} from 'react-native';
 import {windowHeight, windowWidth} from '../utils/Dimensions';
 
-const UserButton = ({user, ...rest}) => {
-  // const [myBool, setmyBool] = useState(true);
-  // function toggleBool() {
-  //   setmyBool(!myBool);
-  // }
+const GroupButton = ({group, ...rest}) => {
   return (
-    // myBool ?
-    <TouchableOpacity style={styles.buttonContainer} {...rest} >
-      <Text style={styles.buttonText}>{user.email}</Text>
+    <TouchableOpacity style={styles.colorButtonContainer} {...rest}>
+      <Text style={styles.buttonText}>{group.groupName}</Text>
     </TouchableOpacity>
-  //   : 
-  //   <TouchableOpacity style={styles.colorButtonContainer} {...rest} onPress={() => {toggleBool()}}>
-  //   <Text style={styles.buttonText}>{user.email}</Text>
-  // </TouchableOpacity>
-
   );
 };
 
-export default UserButton;
+export default GroupButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
