@@ -1,12 +1,17 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { View, Text, Button, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import SocialButton from "../components/SocialButton";
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
+import { AuthContext } from '../navigation/AuthProvider';
 
-const SignupScreen = () => {
+const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+
+  const {register} = useContext(AuthContext);
+
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Create an account!</Text>
@@ -26,17 +31,24 @@ const SignupScreen = () => {
                 iconType="lock"
                 secureTextEntry={true}
             />
+            <FormInput 
+                labelValue={confirmPassword}
+                onChangeText={(userPassword) => setPassword(userPassword)}
+                placeholderText="Confirm Password"
+                iconType="lock"
+                secureTextEntry={true}
+            />
             <FormButton 
                 buttonTitle="Sign Up"
-                onPress={() => alert("Sign up clicked!")}
+                onPress={() => register(email, password)}
             />
 
             <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
               <Text style={styles.navButtonText}>Forgot Password?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.forgotButton} onPress={() => navigation.navigate('SignUp')}>
-              <Text style={styles.navButtonText}>Don't have an account? Create one here</Text>
+            <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.navButtonText}>Have an account? Sign In</Text>
             </TouchableOpacity>
         </View>
     );
