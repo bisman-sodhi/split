@@ -10,6 +10,7 @@ const SignupScreen = ({navigation}) => {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
+  const [displayName, setDisplayName] = useState();
 
   const {register} = useContext(AuthContext);
 
@@ -17,10 +18,16 @@ const SignupScreen = ({navigation}) => {
         <View style={styles.container}>
             <Text style={styles.text}>Create an account!</Text>
             <FormInput 
+                labelValue={displayName}
+                onChangeText={(userDisplayName) => setDisplayName(userDisplayName)}
+                placeholderText="Full Name"
+                iconType="user"
+            />
+            <FormInput 
                 labelValue={email}
                 onChangeText={(userEmail) => setEmail(userEmail)}
                 placeholderText="Email"
-                iconType="user"
+                iconType="mail"
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect="false"
@@ -38,10 +45,11 @@ const SignupScreen = ({navigation}) => {
                 placeholderText="Enter Phone Number As +1xxxxxxxxxx"
                 autoCapitalize="none"
                 autoCorrect="false"
+                iconType="phone"
             />
             <FormButton 
                 buttonTitle="Sign Up"
-                onPress={() => register(email, password, phoneNumber)}
+                onPress={() => register(email, password, phoneNumber, displayName)}
             />
 
             <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>

@@ -34,7 +34,7 @@ export const AuthProvider = ({children}) => {
                         console.log(e);
                     }
                 },
-                register: async(email, password,phoneNumber) => {
+                register: async(email, password,phoneNumber, displayName) => {
                     try {
                         await createUserWithEmailAndPassword(auth,email,password).then(function(data){
                             console.log(data.user.uid);
@@ -43,6 +43,7 @@ export const AuthProvider = ({children}) => {
                                 uid,
                                 phoneNumber,
                                 email,
+                                displayName,
                                 "relationships": {"e5O0TWEqeCNw4nZEpZ5TgueDzpv1":0},
                             })
                           }).catch(function(error) {
