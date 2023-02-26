@@ -1,0 +1,52 @@
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from '../screens/LoginScreen';
+import OnboardingScreen from '../screens/OnboardingScreen';
+import SignupScreen from '../screens/SignupScreen';
+
+// import AsyncStorage from '@react-native-community/async-storage';
+
+const Stack = createStackNavigator();
+
+const AuthStack = () => {
+      // const [isFirstLauch, setIsFirstLaunch] = React.useState(null);
+
+  // useEffect(() => {
+  //   AsyncStorage.getItem('alreadyLaunched').then(value => {
+  //     if (value==null) {
+  //       AsyncStorage.setItem('alreadyLaunched', 'true');
+  //       setIsFirstLaunch(true);
+  //     } else {
+  //       setIsFirstLaunch(false);
+  //     }
+  //   });
+  // }, []);
+
+  // if (isFirstLauch == null) {
+  //   return null;
+  // } else if (isFirstLauch == true) {
+  //   return (
+  //     <NavigationContainer>
+  //       <AppStack.Navigator
+  //         headerMode='none'
+  //       >
+  //         <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
+  //         <AppStack.Screen name="Login" component={LoginScreen} />
+  //       </AppStack.Navigator>
+  //     </NavigationContainer>
+  //   );
+  // } else {
+  //   <LoginScreen/>
+  // }
+
+  return (
+      <Stack.Navigator initialRouteName={"Onboarding"}>
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{header: () => null}} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{header: () => null}} />
+        <Stack.Screen name="SignUp" component={SignupScreen} options={{header: () => null}} />
+      </Stack.Navigator>
+  );
+};
+
+export default AuthStack;
