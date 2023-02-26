@@ -34,13 +34,15 @@ export const AuthProvider = ({children}) => {
                         console.log(e);
                     }
                 },
-                register: async(email, password) => {
+                register: async(email, password,phoneNumber) => {
                     try {
                         await createUserWithEmailAndPassword(auth,email,password).then(function(data){
                             console.log(data.user.uid);
                             const uid = data.user.uid
                             setDoc(doc(firestore, "users", uid), {
                                 uid,
+                                phoneNumber,
+                                email,
                                 "relationships": {"e5O0TWEqeCNw4nZEpZ5TgueDzpv1":0},
                             })
                           }).catch(function(error) {

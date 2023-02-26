@@ -9,6 +9,7 @@ const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+  const [phoneNumber, setPhoneNumber] = useState();
 
   const {register} = useContext(AuthContext);
 
@@ -32,15 +33,15 @@ const SignupScreen = ({navigation}) => {
                 secureTextEntry={true}
             />
             <FormInput 
-                labelValue={confirmPassword}
-                onChangeText={(userPassword) => setPassword(userPassword)}
-                placeholderText="Confirm Password"
-                iconType="lock"
-                secureTextEntry={true}
+                labelValue={phoneNumber}
+                onChangeText={(userPhoneNumber) => setPhoneNumber(userPhoneNumber)}
+                placeholderText="Enter Phone Number As +1xxxxxxxxxx"
+                autoCapitalize="none"
+                autoCorrect="false"
             />
             <FormButton 
                 buttonTitle="Sign Up"
-                onPress={() => register(email, password)}
+                onPress={() => register(email, password, phoneNumber)}
             />
 
             <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>

@@ -8,7 +8,11 @@ const HomeScreen = ({navigation}) => {
     const {user, logout} = useContext(AuthContext);
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Welcome User!</Text> 
+            <Text style={styles.text}>Welcome User!</Text>  
+            <Text style={styles.text}>Groups</Text>
+            <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('NewGroup')}>
+              <Text style={styles.navButtonText}>Create New Group</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Relationship', {otherUID: "e5O0TWEqeCNw4nZEpZ5TgueDzpv1"})}>
               <Text style={styles.navButtonText}>Go to Relationship Page</Text>
             </TouchableOpacity>

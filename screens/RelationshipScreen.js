@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { AuthContext } from '../navigation/AuthProvider';
+//import VeryfiLens from '@veryfi/react-native-veryfi-lens';
 import {
     collection,
     doc,
@@ -16,6 +17,7 @@ import {
   } from "react-firebase-hooks/firestore";
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
+import axios from 'axios';
 
 function getRelationship(id) {
     const q = doc(firestore, "users", id);
@@ -62,6 +64,41 @@ function subtractEvenAmount(changeAmount, current, uid, otherUID) {
     })
 }
 
+async function testReceipt() {
+    // console.log("in here");
+    // const Client = require('@veryfi/veryfi-sdk');
+    // const client_id = 'vrfKlYaAIRVeuSc2J1T2c8GT4UXB9ceThfgh1Ed';
+    // const client_secret = '0YzVCu95CGK9pYcaXFEcLrYxtGVeiYnkw9ZAL5FABI42mKEs93PPox9uNVj3ceOR2Sxo76htX54v2lOyEs0AuSyh1RD4kTiOWXwtHZTOnNFPEBmOR53Pb02PepZ7PmK1';
+    // const username = 'laurenjdaniel3';
+    // const api_key = '70ce3ba524ad325175c4310af8c80f99';
+    
+    // const file_path = '../assets/cpg-receipt-grocery.jpeg';
+    // const veryfiLensSettings = {
+    //     blurDetectionIsOn: true,
+    //     autoLightDetectionIsOn: false,
+    //     documentTypes: ['receipt'],
+    //     showDocumentTypes: true,
+    //     dataExtractionEngine: 'api',
+    //   };
+
+    // const VeryfiLensEmitter = new NativeEventEmitter(VeryfiLens.NativeModule);
+    // let hasListeners = false;
+    // const mindee = require("mindee");
+    // const mindeeClient = new mindee.Client({ apiKey: "d85dbd90a26920cd75ddc370ca53e5a4" });
+
+    // // Load a file from disk and parse it
+    // const doc = mindeeClient.docFromPath("../assets/cpi-receipt-grocery.jpeg");
+    // const respPromise = doc.parse(mindee.ReceiptV4);
+
+    // // Print a summary of the parsed data
+    // respPromise.then((resp) => {
+    // if (resp.document === undefined) return;
+
+    // console.log(resp.document.toString());
+    // });
+
+}
+
 const RelationshipScreen = ({route}) => {
     const { otherUID } = route.params;
     const { userData, isLoading } = getRelationship("s2SC6l4b6CSp67MDwWAPkYCFDNI2");
@@ -93,6 +130,7 @@ const RelationshipScreen = ({route}) => {
                 />
                 <FormButton buttonTitle='Split Evenly (I paid)' onPress={()=> {addEvenAmount(totalChangeAmount, amount,"s2SC6l4b6CSp67MDwWAPkYCFDNI2",otherUID)}}/>
                 <FormButton buttonTitle='Split Evenly (They paid)' onPress={()=> {subtractEvenAmount(totalChangeAmount, amount,"s2SC6l4b6CSp67MDwWAPkYCFDNI2",otherUID)}}/>
+                <FormButton buttonTitle='Test' onPress={()=> {testReceipt()}}/>
             </View>
         );
     }
